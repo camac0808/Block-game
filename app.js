@@ -33,8 +33,6 @@ let chosenColor = "#0095DD";
 let score = 0;
 let lives = 3;
 
-let interval = setInterval(draw, 10);
-
 // 패들 만들기
 function drawPaddle() {
   ctx.beginPath();
@@ -118,7 +116,7 @@ function draw() {
         h1.innerHTML = "GAME OVER";
         button.removeAttribute("hidden");
         document.removeEventListener("mousemove", mouseMoveHandler);
-        clearInterval(interval);
+        return false;
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
@@ -152,6 +150,7 @@ function draw() {
   x += dx * v;
   y += dy * v;
   // draw()함수가 반복적으로 자신을 호출
+  requestAnimationFrame(draw);
 }
 
 button.addEventListener("click", () => {
@@ -223,3 +222,5 @@ function collisionDetection() {
     }
   }
 }
+
+draw();
