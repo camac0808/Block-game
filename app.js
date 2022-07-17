@@ -105,10 +105,23 @@ function draw() {
   // 아래 부딪힐때
   if (y + dy + ballRadius > canvas.height) {
     // 패들에 맞을때
-    if (x > paddleX && x < paddleX + paddleWidth) {
+    if (x > paddleX && x < paddleX + (paddleWidth/4)) {
+      dx += 0.5;
       dy = -dy;
       v += 0.2;
-    }
+    } else if (x > paddleX && x < paddleX + (paddleWidth/4 * 2)){
+      dx += 0.25;
+      dy = -dy;
+      v += 0.2;
+    } else if (x > paddleX && x < paddleX + (paddleWidth/4 * 3)) {
+      dx += -0.25;
+      dy = -dy;
+      v += 0.2;
+    } else if (x > paddleX && x < paddleX + (paddleWidth)) {
+      dx += -0;
+      dy = -dy;
+      v += 0.2;
+    } 
     // 패들에 안맞을때
     else {
       lives--;
@@ -120,8 +133,8 @@ function draw() {
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
-        dx = 3;
-        dy = -3;
+        dx = 2;
+        dy = -2;
         paddleX = (canvas.width - paddleWidth) / 2;
       }
     }
@@ -133,7 +146,7 @@ function draw() {
   } else if (leftPress && paddleX > 0) {
     paddleX -= 7;
   }
-
+  
   // 패들 다 맞추면
   if (score == brickColumn * brickRow) {
     h1.innerHTML = "YOU WIN, CONGRATULATIONS!";
